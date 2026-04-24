@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Lint markdown files
+        run: |
+          pip install markdownlint-cli
+          markdownlint '**/*.md' '**/docs/**/*.md'
+
+      - name: Validate structure
+        run: |
+          chmod +x scripts/validate_structure.sh
+          ./scripts/validate_structure.sh
