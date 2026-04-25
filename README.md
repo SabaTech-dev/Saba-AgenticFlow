@@ -1,6 +1,7 @@
 # Saba-AgenticFlow — Multi-Agent Orchestration Framework
 
 ![CI](https://github.com/SabaTech-dev/Saba-AgenticFlow/workflows/CI/badge.svg)
+![Coverage](https://img.shields.io/codecov/c/github/SabaTech-dev/Saba-AgenticFlow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ## Abstract
@@ -66,6 +67,10 @@ cat docs/architecture.md
 
 # Explore patterns
 cat docs/patterns.md
+
+# See [CHANGELOG.md](CHANGELOG.md) for version history
+## Releases
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 ```
 
 ## API Reference
