@@ -1,0 +1,46 @@
+# =============================================================================
+# SLSA L1 — Provenance Attestation (OWASP A03: Supply Chain)
+# Generates signed provenance for build artifacts
+# =============================================================================
+
+name: SLSA Provenance Attestation
+
+on:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+  id-token: write   # Required for OIDC signing
+  attestations: write
+
+jobs:
+  provenance:
+    name: Generate Provenance Attestation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build tools
+        run: python -m pip install --upgrade pip build
+
+      - name: Build package
+        run: python -m build
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/*
+
+      - name: Upload provenance artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: provenance
+          path: .attestation/
+          retention-days: 90
